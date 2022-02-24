@@ -11,7 +11,7 @@ app.get("/name/:name",customerController.getCustomerByName);
 
 app.post("/",auth, customerController.addCustomer);
 
-app.patch("/:id",auth,customerController.editCustomer);
+app.put("/:id",auth,customerController.editCustomer);
 
 app.delete("/:id",auth, customerController.deleteCustomer);
 

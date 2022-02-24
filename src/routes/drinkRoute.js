@@ -11,7 +11,7 @@ app.get("/name/:name",drinkController.getDrinkByName);
 
 app.post("/",auth, drinkController.addDrink);
 
-app.patch("/:id",auth,drinkController.editDrink);
+app.put("/:id",auth,drinkController.editDrink);
 
 app.delete("/:id",auth, drinkController.deleteDrink);
 

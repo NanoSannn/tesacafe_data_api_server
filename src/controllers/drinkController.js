@@ -40,6 +40,9 @@ exports.addDrink = async (req, res) => {
     try {
         let drink = new Drink({
             name : req.body.name,
+            img : req.body.img,
+            drinkTy : req.body.drinkTy,
+            price : req.body.price,
             // drinkType : [
             //     {
             //         type : req.body.type,
@@ -47,9 +50,9 @@ exports.addDrink = async (req, res) => {
             //     },
             // ]
         });
-        req.body.drinkType.forEach((dt)=>{
-            drink.drinkType.push(dt);
-        });
+        // req.body.drinkType.forEach((dt)=>{
+        //     drink.drinkType.push(dt);
+        // });
         let createdDrink = await drink.save();
         res.status(200).json({
             msg: "Add a Drink complete.",
@@ -66,6 +69,9 @@ exports.addDrink = async (req, res) => {
 exports.editDrink = async (req, res) => {
     let drink = {
         name : req.body.name,
+        img : req.body.img,
+        drinkTy : req.body.drinkTy,
+        price : req.body.price,
         // drinkType : [
         //     {
         //         type : req.body.type,
@@ -73,9 +79,9 @@ exports.editDrink = async (req, res) => {
         //     },
         // ]
     };
-    req.body.drinkType.forEach((dt)=>{
-        drink.drinkType.push(dt);
-    });
+    // req.body.drinkType.forEach((dt)=>{
+    //     drink.drinkType.push(dt);
+    // });
     Drink.findByIdAndUpdate(req.params.id, drink) 
         .exec((err, result) => {
             Drink.findById(req.params.id)

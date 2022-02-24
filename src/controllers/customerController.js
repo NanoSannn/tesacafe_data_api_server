@@ -1,7 +1,7 @@
 const Customer = require('../models/customerModel');
 exports.getCustomer = async (req, res) => {
 
-    Customer.find()  
+    Customer.find()
         .exec((err, result) => {
             res.status(200).json({
                 msg: "OK",
