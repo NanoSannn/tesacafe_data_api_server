@@ -11,7 +11,9 @@ app.get("/name/:name",salesController.getSalesByName);
 
 app.post("/",auth, salesController.addSales);
 
-app.patch("/:id",auth,salesController.editSales);
+app.put("/:id",auth,salesController.editSales);
+
+app.patch("/:id",auth,salesController.addItems);
 
 app.delete("/:id",auth, salesController.deleteSales);
 

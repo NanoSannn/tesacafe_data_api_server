@@ -73,21 +73,39 @@ exports.editCustomer = async (req, res) => {
     let customer = {
         name: req.body.name,
         email : req.body.email,
-        tel_phone : req.body.tel_phone,
-        // favoriteDrinks : [
-        //     {
-        //         drinkName : req.body.drinkName,
-        //         drinkType : req.body.drinkType,
-        //     },
-        // ],
+        tel_phone : req.body.tel_phone
     };
-    req.body.favoriteDrinks.forEach((fd)=>{
-        customer.favoriteDrinks.push(fd);
-    });
+    // req.body.favoriteDrinks.forEach((fd)=>{
+    //     customer.favoriteDrinks.push(fd);
+    // });
     Customer.findByIdAndUpdate(req.params.id, customer) 
         .exec((err, result) => {
             Customer.findById(req.params.id)
                 .exec((err, result) => {
+                    res.status(200).json({
+                        msg: "OK",
+                        data: result
+                    });
+                });
+        });
+};
+
+exports.addFavoriteDrinks = async (req, res) => {
+    let favoriteDrink = {
+        $push: {
+            favoriteDrinks:[
+                {
+                    drinkName : req.body.drinkName,
+                    drinkType : req.body.drinkType,
+                }
+            ]
+        }
+    };
+    Customer.findByIdAndUpdate(req.params.id, favoriteDrink)
+        .exec((err, result) => {
+            Customer.findById(req.params.id)
+                .exec((err, result) => {
+                    // return doc ที่แก้ไขแล้วกลับไป
                     res.status(200).json({
                         msg: "OK",
                         data: result

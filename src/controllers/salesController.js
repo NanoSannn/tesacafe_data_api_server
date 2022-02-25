@@ -39,13 +39,9 @@ exports.getSalesByName = async (req, res) => {
 exports.addSales = async (req, res) => {
     try {
         let sales = new Sales({
-            customer : 
-                {
-                    name : req.body.customer.name,
-                    email : req.body.customer.email,
-                    tel_phone : req.body.customer.tel_phone,
-                },
-            
+                    name : req.body.name,
+                    email : req.body.email,
+                    tel_phone : req.body.tel_phone,
             // tems : [
             //     {
             //         name : req.body.name,
@@ -53,9 +49,6 @@ exports.addSales = async (req, res) => {
             //         price : req.body.price,
             //     },
             // ],
-        });
-        req.body.items.forEach((t)=>{
-            sales.items.push(t);
         });
         let createdSales = await sales.save();
         res.status(200).json({
@@ -72,20 +65,44 @@ exports.addSales = async (req, res) => {
 
 exports.editSales = async (req, res) => {
     let sales = {
-        customer : {
-                name : req.body.customer.name,
-                email : req.body.customer.email,
-                tel_phone : req.body.customer.tel_phone,
-        },
+                name : req.body.name,
+                email : req.body.email,
+                tel_phone : req.body.tel_phone,
+                
         
     };
-    req.body.items.forEach((t)=>{
-        sales.items.push(t);
-    });
+    // req.body.items.forEach((t)=>{
+    //     sales.items.push(t);
+    // });
     Sales.findByIdAndUpdate(req.params.id, sales) 
         .exec((err, result) => {
             Sales.findById(req.params.id)
                 .exec((err, result) => {
+                    res.status(200).json({
+                        msg: "OK",
+                        data: result
+                    });
+                });
+        });
+};
+
+exports.addItems = async (req, res) => {
+    let item = {
+        $push: {
+            items : [
+                {
+                    drinkName : req.body.items[0].drinkName,
+                    drinkType : req.body.items[0].drinkType,
+                    price : req.body.items[0].price,
+                }
+            ]
+        }
+    };
+    Sales.findByIdAndUpdate(req.params.id, item)
+        .exec((err, result) => {
+            Sales.findById(req.params.id)
+                .exec((err, result) => {
+                    // return doc ที่แก้ไขแล้วกลับไป
                     res.status(200).json({
                         msg: "OK",
                         data: result

@@ -13,6 +13,8 @@ app.post("/",auth, customerController.addCustomer);
 
 app.put("/:id",auth,customerController.editCustomer);
 
+app.patch("/:id",auth,customerController.addFavoriteDrinks);
+
 app.delete("/:id",auth, customerController.deleteCustomer);
 
 module.exports = app;
