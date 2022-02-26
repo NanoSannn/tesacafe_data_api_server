@@ -125,3 +125,21 @@ exports.deleteSales = async (req, res) => {
             }
         });
 };
+
+exports.deleteItems = async (req, res) => {
+    Sales.findById(req.params.id)  
+        .exec((err)=>{
+            Sales.findByIdAndDelete(req.params.id)        
+                .exec((err)=>{
+                    if(err){
+                        res.status(500).json({
+                            msg: err
+                        });
+                    } else{
+                        res.status(200).json({
+                            msg: "Delete complete"
+                        });
+                    }
+                });
+        });
+};

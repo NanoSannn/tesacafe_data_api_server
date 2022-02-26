@@ -17,4 +17,6 @@ app.patch("/:id",auth,customerController.addFavoriteDrinks);
 
 app.delete("/:id",auth, customerController.deleteCustomer);
 
+app.delete("/fd/:id/:idDrink",auth, customerController.deleteFavoriteDrinks);
+
 module.exports = app;

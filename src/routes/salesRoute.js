@@ -17,4 +17,6 @@ app.patch("/:id",auth,salesController.addItems);
 
 app.delete("/:id",auth, salesController.deleteSales);
 
+app.delete("/items/:id",auth, salesController.deleteItems);
+
 module.exports = app;

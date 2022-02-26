@@ -128,3 +128,17 @@ exports.deleteCustomer = async (req, res) => {
             }
         });
 };
+
+exports.deleteFavoriteDrinks = async (req, res) => {
+    Customer.findById(req.params.id)     
+        .exec((err, result)=>{
+            let customer = result
+            console.log(customer.favoriteDrinks[0]);
+            
+            // for(var i in customer.favoriteDrinks){
+            //     console.log(customer.favoriteDrinks[i]);
+            // }
+        });
+    // console.log("ID CUST:" + req.params.id);
+    // console.log("ID Drink:" + req.params.idDrink);
+};
